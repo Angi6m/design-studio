@@ -25,7 +25,7 @@ orderForm.addEventListener('submit', async (e) => {
     const order = document.getElementById('clientOrder').value.trim();
 
     if (name === "" || phone === "" || order === "") {
-        alert("يرجى تعبئة جميع الحقول أولاً يا أختي ✨");
+        alert("يرجى تعبئة جميع الحقول أولاً  ✨");
         return;
     }
 
