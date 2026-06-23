@@ -47,7 +47,7 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 // الإمساك بعناصر النموذج من الـ HTML
-const orderForm = document.getElementById('orderForm');
+const orderForm = document.getElementById('contactForm');
 
 // مراقبة ضغط الزر وإرسال البيانات
 orderForm.addEventListener('submit', async (e) => {
