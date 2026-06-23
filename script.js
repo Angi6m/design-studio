@@ -1,5 +1,4 @@
 
-
 // استدعاء الدوال الحركية من سيرفرات فايربيس مباشرة
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
@@ -57,7 +56,7 @@ orderForm.addEventListener('submit', async (e) => {
         });
 
         // إظهار رسالة النجاح وتفريغ الحقول
-        alert("تم استلام طلبكِ بنجاح! سنتواصل معكِ قريباً ✨");
+        alert("تم استلام طلبكِ بنجاح يا أختي! سنتواصل معكِ قريباً ✨");
         orderForm.reset();
 
     } catch (error) {
