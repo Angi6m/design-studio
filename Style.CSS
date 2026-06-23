@@ -210,3 +210,14 @@ html {
     scroll-behavior: smooth;/*  لروابط العلويه نخلي النزول ناعم وسلس بدل ما يقفز فجأة.*/
     scroll-behavior: smooth;
 }
+
+/* تنسيق وتصغير الشعار ونقله إلى اليمين */
+.nav-logo {
+    width: 70px; /* تحديد حجم أنيق للشعار */
+    height: 70px;
+    object-fit: contain;
+    display: block;
+    margin-right: 40px; /* لإعطائه مسافة مريحة من حافة الشاشة اليمنى */
+    margin-top: 15px; /* مسافة من الأعلى */
+    margin-bottom: 10px;
+}
