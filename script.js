@@ -36,7 +36,7 @@ orderForm.addEventListener('submit', async (e) => {
             timestamp: new Date()
         });
 
-        alert("تم إرسال طلبكِ بنجاح يا ملاك! ✨");
+        alert("تم إرسال طلبكِ بنجاح ! ✨");
 
         const whatsappNumber = "96896492685";
         const messageText = `مرحباً Design Studio ✨%0A%0Aأود طلب خدمة من الموقع، وهذه تفاصيلي:%0A👤 *الاسم:* ${name}%0A📱 *الهاتف:* ${phone}%0A📝 *تفاصيل الطلب:* ${order}`;
