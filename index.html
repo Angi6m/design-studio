@@ -1,124 +1,93 @@
-<link rel="stylesheet" href="Style.CSS">
-<!--لربط صفحه html مع التصميم-->
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Design Studio</title> <!--عنوان-->
-   
+    <title>Design Studio | لوحة الإبداع</title>
+    <link rel="stylesheet" href="Style.CSS">
 </head>
-
-
 <body>
- <img src="IMAGE/IMAGElogo.jpeg" alt="Logo" class="nav-logo" width="80" height="80"> <!--للاضافه صوره-->
 
-    <nav> <!--رابط الى يقدروا يطلعوا منه-->
-   <a href="#">الرئيسية</a>
-<a href="#services">الخدمات</a>
-<a href="#portfolio">أعمالنا</a>
-<a href="#contact">تواصل معنا</a>
-</nav>
-  
+    <nav class="navbar">
+        <div class="nav-container">
+            <span class="brand-logo">Design Studio ✨</span>
+            <ul class="nav-links">
+                <li><a href="#home">الرئيسية</a></li>
+                <li><a href="#services">الخدمات</a></li>
+                <li><a href="#pricing">قائمة الأسعار</a></li>
+                <li><a href="#contact">تواصل معنا</a></li>
+            </ul>
+        </div>
+    </nav>
 
-    <h1>تصاميم إبداعية تبني هويتك</h1> <!--عنوان-->
-   <p>نساعد الأفراد والشركات على إنشاء هويات بصرية احترافية
-    وتصاميم مميزة تترك أثرًا لدى العملاء</p> <!--الفقرة-->
+    <section id="home" class="hero-section">
+        <h1>تصاميم إبداعية تبني هويتك</h1>
+        <p>نقدم خدمات تصميم رقمية فخمة واحترافية لتناسب تطلعات عملك.</p>
+    </section>
 
-    <a href="https://api.whatsapp.com/send?phone=96896492685" target="_blank">
-    <button>اطلب خدمة</button>
-</a>
-<section id="services" class="services"></section>
-   <h2>خدماتنا</h2>
-  
+    <section id="services" class="services-section">
+        <h2>خدماتنا</h2>
+        <div class="services-grid">
+            <div class="service-card">🛍️ تصميم الهويات التجارية</div>
+            <div class="service-card">📱 تصميم منشورات السوشيال ميديا</div>
+            <div class="service-card">💻 تطوير المواقع الإلكترونية</div>
+        </div>
+    </section>
 
-<section class="services">
+    <section id="pricing" class="pricing-section">
+        <h2>💰 قائمة الأسعار</h2>
+        <div class="pricing-grid">
+            
+            <div class="price-card">
+                <h3>تصميم شعار</h3>
+                <p class="price-val">20 ر.ع</p>
+                <ul>
+                    <li>شعار احترافي فريد</li>
+                    <li>تسليم بملفات عالية الجودة</li>
+                    <li>تعديلات محدودة</li>
+                </ul>
+            </div>
 
+            <div class="price-card featured">
+                <span class="badge">الأكثر طلباً 🔥</span>
+                <h3>هوية تجارية كاملة</h3>
+                <p class="price-val">50 ر.ع</p>
+                <ul>
+                    <li>تصميم الشعار وملحقاته</li>
+                    <li>بزنس كارد وفولدر</li>
+                    <li>قوالب السوشيال ميديا</li>
+                </ul>
+            </div>
 
+            <div class="price-card">
+                <h3>إدارة السوشيال ميديا</h3>
+                <p class="price-val">80 ر.ع</p>
+                <ul>
+                    <li>تصميم منشورات شهرياً</li>
+                    <li>كتابة المحتوى والهاشتاجات</li>
+                    <li>متابعة وتفاعل يومي</li>
+                </ul>
+            </div>
 
-    <div class="card">
-        <h3>تصميم الشعارات</h3>
-        <p>تصميم شعارات احترافية تعبر عن هويتك</p>
-    </div>
+        </div>
+    </section>
 
-    <div class="card">
-        <h3>الهوية البصرية</h3>
-        <p>بناء هوية متكاملة للعلامة التجارية</p>
-    </div>
+    <section id="contact" class="contact-section">
+        <h2>اطلب خدمتك الآن</h2>
+        <form id="contactForm" class="order-form">
+            <input type="text" id="clientName" placeholder="الاسم الكريم" required>
+            <input type="tel" id="clientPhone" placeholder="رقم الهاتف أو الواتساب" required>
+            
+            <div class="file-input-wrapper">
+                <label>إرفاق صورة للمثال أو الشغل المطلوب (اختياري):</label>
+                <input type="file" id="clientImage" accept="image/*">
+            </div>
+            
+            <textarea id="clientOrder" placeholder="تفاصيل الرسالة أو الخدمة المطلوبة" required></textarea>
+            <button type="submit" class="submit-btn">إرسال الطلب عبر الواتساب 🚀</button>
+        </form>
+    </section>
 
-    <div class="card">
-        <h3>تصميم المواقع</h3>
-        <p>تصميم مواقع حديثة ومتجاوبة</p>
-    </div>
-
-</section>
-
-<h2>أعمالنا</h2>
-<h2 id="portfolio"></h2>
-<div class="portfolio">
-    <img src="IMAGE/work1.jpeg" alt="مشروع 1">
-    <img src="IMAGE/work2.jpeg" alt="مشروع 2">
-    <img src="IMAGE/work3.jpeg" alt="مشروع 3">
-</div>
-
-<h2>آراء العملاء</h2><!--تقيم-->
-
-<div class="testimonials">
-
-    <div class="testimonial">
-        <h3>⭐⭐⭐⭐⭐</h3>
-        <p>تصميم احترافي وسرعة في الإنجاز</p>
-        
-    </div>
-
-    <div class="testimonial">
-        <h3>⭐⭐⭐⭐⭐</h3>
-        <p>تعامل رائع والنتيجة أفضل من المتوقع</p>
-        
-    </div>
-
-    <div class="testimonial">
-        <h3>⭐⭐⭐⭐⭐</h3>
-        <p>أنصح بالتعامل معهم</p>
-        
-    </div>
-
-    <h2>تواصل معنا</h2>
-    <h2 id="contact"></h2><!--هذا عشان يوم اضغط على الزر يوديني الى القسم المطلوب-->
-   
-    
-
-<form id="contactForm" class="contact-form"><!-- formيسمح للعملاء بادخال بياناتهم-->
-
-  <input type="text" id="clientName" placeholder="الاسم الكامل">
-
-<input type="tel" id="clientPhone" placeholder="رقم الهاتف أو الواتساب">
-
-<textarea id="clientOrder" placeholder="اكتب رسالتك هنا"></textarea>
-
-    <button type="submit">إرسال</button>
-
-</form>
-
-</div>
-
-<footer>
-
-    <h3>Design Studio</h3><!--هو الجزء الموجود أسفل الموقع ويحتوي على معلومات التواصل.-->
-
-    <p>تصميم شعارات، هويات بصرية، ومواقع إلكترونية.</p>
-
-    <p>📱 +96896492685</p>
-        <a href="https://api.whatsapp.com/send?phone=96896492685">
-    تواصل واتساب
-</a>
-        <a href="https://instagram.com/q66z5">إنستجرام</a>
-
-    <p>© 2026 جميع الحقوق محفوظة</p>
-
-</footer>
-
- <script type="module" src="script.js"></script> <!--لربط مع مجلد-->
-
+    <script type="module" src="script.js"></script>
 </body>
 </html>
