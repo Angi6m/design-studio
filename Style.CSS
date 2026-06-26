@@ -1,227 +1,108 @@
+/* إعدادات عامة للموقع */
+* {
+    margin: 0;
+    padding: 0;
+    box-shadow: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
 body {
-    background-color:    #FBF3EE;
-
-    color: ##DE6D92;
-    text-align: center;
-    font-family: Arial;
+    background-color: #fcf8f5;
+    color: #5c4d3c;
+    line-height: 1.6;
 }
 
-h1 {
-    color:     #DE6D92;
-    margin-top: 50px; /* يجعل العنوان بعيدًا عن أعلى الصفحة*/
-      font-size: 60px;
-}
-
-
-p {
-    font-size: 30px;  /*  حجم الخط  */
-    color:  ##33383B;
-    margin-top: 20px;
-}
-button {
-    background-color: DE6D92; /* ستايل الزر */
-     box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-    color: #FFFFFF;
-    border: none;
+/* القائمة العلوية */
+.navbar {
+    background-color: white;
     padding: 15px 30px;
-    font-size: 20px;
-    border-radius: 10px;
-    transition: 0.3s;/*حركه المربع ناعمه*/
-
-}
-nav {
-    background-color: #FFFFFF;
-    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 
-nav a {
-    color: #33383B; /* ستايل الروابط */
-    text-decoration: none;
-    margin: 15px;
-    font-size: 20px;
-}
-
-.card {
-    background-color: white; /*ستايل الخدمات */
-    width:  220px;
-    margin: 20px auto;
-    padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    transition: 0.3s;/*حركه المربع ناعمه*/
-}
-section {
+.nav-container {
     display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-.logo {
-    width: 120px;
-    position: absolute;
-    top: 20px;
-    right: 20px;
-}
-h2 {
-    text-align: center;
-    width: 100%;
-}
-.portfolio {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    flex-wrap: wrap;
-    margin-top: 20px;
-}
-
-
-
-.portfolio img {
-    width: 300px;
-    border-radius: 15px;
-    .portfolio img {
-    transition: 0.3s;/*حركه الصور ناعمه*/
-}
-}
-
-.card:hover {
-    transform: scale(1.05);  /*هذي البرمجه تسوي حركه حل المربعات يوم احط الماوس عليها*/
-}
-.portfolio img:hover {
-    transform: scale(1.05); /*هذي البرمجه تسوي حركه حل المربعات يوم احط الماوس عليها*/
-}
-button:hover {
-    background-color: #ec4899;/*هذي البرمجه تسوي حركه حل المربعات يوم احط الماوس عليها*/
-    transform: scale(1.05);
-}
-
-.testimonials {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    flex-wrap: wrap;
-    margin-top: 20px;
-}
-
-.testimonial {
-    background-color: white;/*ستايل لاراء العملاء*/
-    width: 250px;
-    padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    transition: 0.3s;
-}
-.testimonial:hover {
-    transform: scale(1.05);
-}
-
-.contact-form {
-    display: flex;/*ستايل لادخال الباينات */
-    flex-direction: column;
-    width: 400px;
-    margin: 30px auto;
-    gap: 15px;
-}
-
-.contact-form input,
-.contact-form textarea {
-    padding: 15px;
-    border-radius: 10px;
-    border: 1px solid #ddd;
-    font-size: 16px;
-}
-
-.contact-form textarea {
-    height: 150px;
-}
-
-.contact-form button {
-    cursor: pointer;
-}
-
-footer {
-    background: radial-gradient(circle, #FCF6F2 0%, #F5E6DD 60%, #EAD5C9 100%);
-    color: 2A2A2A;
-    padding: 30px;
-    margin-top: 50px;
-}
-
-/*  عشان يتناسب الموقع مع شكل الاجهزه */
-@media (max-width: 768px) {
-
-    nav {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    .services {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .portfolio {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .testimonials {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .contact-form {
-        width: 90%;
-    }
-
-}
-
-/* تنسيق المربع (الكرت) نفسه لجميع الخدمات */
-.card {
-    background-color: #FFFFFF; /* خلفية بيضاء صافية مريحة للكروت */
-    border-radius: 15px; /* حواف دائرية ناعمة وأنيقة */
-    padding: 25px; /* مسافة داخلية مناسبة للنصوص */
-    margin-bottom: 20px; /* مسافة تفصل كل مربع عن المربع الذي تحته */
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.03); /* ظل خفيف جداً وناعم يعطي فخامة */
-    text-align: center; /* تمركز النصوص في المنتصف */
-    border: 1px solid #F3E4DC; /* إطار خفيف جداً يدمج المربع مع تدرج الخلفية */
-}
-
-/* توحيد لون العناوين الثلاثة في جميع المربعات */
-.card h3 {
-    color: #4A1E29; /* لون باذنجاني داكن وفخم مستوحى من اللوجو */
+.brand-logo {
     font-size: 20px;
     font-weight: bold;
-    margin-top: 0;
-    margin-bottom: 12px;
+    color: #d4a373;
 }
 
-/* توحيد لون النصوص الشارحة في جميع المربعات */
-.card p {
-    color: #2A2A2A; /* لون أسود دخاني هادئ وموحد لسهولة القراءة */
-    font-size: 16px;
-    line-height: 1.6;
-    margin: 0;
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 20px;
 }
 
-button:hover{
-    transform: scale(1.05);
+.nav-links a {
+    text-decoration: none;
+    color: #5c4d3c;
+    font-weight: 500;
+    transition: color 0.3s;
 }
 
-html {
-    scroll-behavior: smooth;/*  لروابط العلويه نخلي النزول ناعم وسلس بدل ما يقفز فجأة.*/
-    scroll-behavior: smooth;
+.nav-links a:hover {
+    color: #d4a373;
 }
 
-/* تنسيق وتصغير الشعار ونقله إلى اليمين */
-.nav-logo {
-    width: 70px; /* تحديد حجم أنيق للشعار */
-    height: 70px;
-    object-fit: contain;
-    display: block;
-    margin-right: 40px; /* لإعطائه مسافة مريحة من حافة الشاشة اليمنى */
-    margin-top: 15px; /* مسافة من الأعلى */
-    margin-bottom: 10px;
+/* القسم الرئيسي للترحيب */
+.hero-section {
+    padding: 100px 20px;
+    text-align: center;
+    background: linear-gradient(135deg, #fffbf7 0%, #f7ede2 100%);
 }
-/* ####### تنسيقات قائمة الأسعار الجديدة ####### */
+
+.hero-section h1 {
+    font-size: 36px;
+    color: #d4a373;
+    margin-bottom: 15px;
+}
+
+.hero-section p {
+    font-size: 18px;
+    color: #7a6b58;
+}
+
+/* قسم الخدمات */
+.services-section {
+    padding: 60px 20px;
+    text-align: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.services-section h2, .pricing-section h2, .contact-section h2 {
+    color: #d4a373;
+    margin-bottom: 40px;
+    font-size: 28px;
+}
+
+.services-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.service-card {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    border: 1px solid #f1eae4;
+    width: 260px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+    font-weight: bold;
+}
+
+/* قسم قائمة الأسعار */
 .pricing-section {
     padding: 60px 20px;
     background-color: #fffbf7;
@@ -244,9 +125,120 @@ html {
     border-radius: 12px;
     width: 280px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.02);
-    transition: transform 0.3s ease;
+    transition: transform 0.3s;
+    position: relative;
 }
 
 .price-card:hover {
     transform: translateY(-5px);
+}
+
+.price-card.featured {
+    border: 2px solid #d4a373;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.price-card .badge {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #d4a373;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+}
+
+.price-card h3 {
+    margin-bottom: 10px;
+    color: #5c4d3c;
+}
+
+.price-val {
+    font-size: 26px;
+    color: #d4a373;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.price-card ul {
+    list-style: none;
+    color: #7a6b58;
+    line-height: 2;
+    text-align: right;
+    padding-right: 10px;
+}
+
+/* قسم نموذج الطلب */
+.contact-section {
+    padding: 60px 20px;
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.order-form {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    border: 1px solid #f1eae4;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.order-form input[type="text"],
+.order-form input[type="tel"],
+.order-form textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #f1eae4;
+    border-radius: 8px;
+    background-color: #fffbf7;
+    font-size: 15px;
+    box-sizing: border-box;
+}
+
+.file-input-wrapper {
+    text-align: right;
+}
+
+.file-input-wrapper label {
+    font-size: 14px;
+    font-weight: bold;
+    color: #7a6b58;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.file-input-wrapper input[type="file"] {
+    width: 100%;
+    padding: 8px;
+    background: white;
+    border: 1px solid #f1eae4;
+    border-radius: 6px;
+    box-sizing: border-box;
+}
+
+.order-form textarea {
+    height: 120px;
+    resize: vertical;
+}
+
+.submit-btn {
+    background-color: #d4a373;
+    color: white;
+    border: none;
+    padding: 14px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.submit-btn:hover {
+    background-color: #bc8f62;
 }
