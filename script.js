@@ -1,5 +1,6 @@
-import { initializeApp } from "[https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js](https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js)";
-import { getFirestore, collection, addDoc } from "[https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js](https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js)";
+// ####### استيراد مكتبات الفايربيس #######
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyA69wrlpPFGg35NYXalTvciadHKx0ZpbM8",
@@ -14,12 +15,25 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-const orderForm = document.getElementById('contactForm');
+// ####### برمجة تفاعل قائمة الأسعار المنسدلة وتحديث السعر #######
+const packageSelect = document.getElementById('packageSelect');
+const priceDisplay = document.getElementById('priceDisplay');
 
-// دالة برمجية لتحويل ملف الصورة إلى نص Base64 ليتم حفظه في السيرفر بسهولة
+packageSelect.addEventListener('change', () => {
+    const selectedOption = packageSelect.options[packageSelect.selectedIndex];
+    const price = selectedOption.getAttribute('data-price');
+    
+    if (price === "0" || !price) {
+        priceDisplay.textContent = "--";
+    } else {
+        priceDisplay.textContent = price;
+    }
+});
+
+// ####### دالة تحويل ملف الصورة الاختيارية لنص يحفظ في السيرفر #######
 function convertImageToBase64(file) {
     return new Promise((resolve, reject) => {
-        if (!file) resolve(""); // إذا لم يتم رفع صورة، ترجع قيمة فارغة
+        if (!file) resolve(""); 
         const reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onload = () => resolve(reader.result);
@@ -27,13 +41,20 @@ function convertImageToBase64(file) {
     });
 }
 
+// ####### برمجة نموذج الإرسال والربط مع السيرفر والواتساب #######
+const orderForm = document.getElementById('contactForm');
+
 orderForm.addEventListener('submit', async (e) => {
     e.preventDefault();
 
     const name = document.getElementById('clientName').value.trim();
     const phone = document.getElementById('clientPhone').value.trim();
     const order = document.getElementById('clientOrder').value.trim();
-    const imageFile = document.getElementById('clientImage').files[0]; // جلب ملف الصورة
+    const imageFile = document.getElementById('clientImage').files[0]; 
+    
+    // جلب الباقة المختارة والسعر
+    const chosenPackage = packageSelect.value;
+    const chosenPrice = priceDisplay.textContent;
 
     if (name === "" || phone === "" || order === "") {
         alert("يرجى تعبئة الحقول الأساسية أولاً ✨");
@@ -41,25 +62,31 @@ orderForm.addEventListener('submit', async (e) => {
     }
 
     try {
-        // تحويل الصورة برمجياً قبل الإرسال (ستكون فارغة إذا لم يرفع المستخدم شيئاً)
         const imageBase64 = await convertImageToBase64(imageFile);
 
-        // 1. حفظ البيانات كاملة مع الصورة في Firebase
+        // 1. حفظ الطلب في السيرفر مع بيانات السعر والباقة والصورة
         await addDoc(collection(db, "orders"), {
             clientName: name,
             clientPhone: phone,
             clientOrder: order,
-            clientImage: imageBase64, // حفظ كود الصورة الاختيارية هنا
+            clientPackage: chosenPackage || "لم يتم اختيار باقة محددة",
+            clientPrice: chosenPrice !== "--" ? chosenPrice + " ر.ع" : "غير محدد",
+            clientImage: imageBase64, 
             status: "active",
             timestamp: new Date()
         });
 
-        // رسالة تنبيه بنجاح الإرسال وحفظ البيانات في السيرفر
         alert("تم إرسال طلبكِ بنجاح! ✨");
 
-        // 2. تجهيز نص رسالة الواتساب التلقائية والانتقال إليها
+        // 2. تجهيز نص رسالة الواتساب الاحترافية شاملة السعر والباقة المحددة
         const whatsappNumber = "96896492685";
-        let messageText = `مرحباً Design Studio ✨%0A%0Aأود طلب خدمة من الموقع، وهذه تفاصيلي:%0A👤 *الاسم:* ${name}%0A📱 *الهاتف:* ${phone}%0A📝 *تفاصيل الطلب:* ${order}`;
+        let messageText = `مرحباً Design Studio ✨%0A%0Aأود طلب خدمة من الموقع، وهذه تفاصيلي:%0A👤 *الاسم:* ${name}%0A📱 *الهاتف:* ${phone}`;
+        
+        if (chosenPackage !== "") {
+            messageText += `%0A📦 *الباقة المختارة:* ${chosenPackage}%0A💰 *السعر المقدر:* ${chosenPrice} ر.ع`;
+        }
+        
+        messageText += `%0A📝 *تفاصيل الطلب:* ${order}`;
         
         if(imageFile) {
             messageText += `%0A📸 *ملاحظة:* قمت بإرفاق صورة توضيحية للمثال في الموقع!`;
@@ -67,10 +94,10 @@ orderForm.addEventListener('submit', async (e) => {
 
         const whatsappUrl = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${messageText}`;
         
-        // الانتقال المباشر للواتساب المتوافق مع الهواتف والكمبيوتر
+        // الانتقال الفوري المتوافق مع الهواتف والكمبيوتر بدون حظر النوافذ
         window.location.href = whatsappUrl;
-
         orderForm.reset();
+        priceDisplay.textContent = "--";
 
     } catch (error) {
         console.error("حدث خطأ أثناء إرسال الطلب: ", error);
