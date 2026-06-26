@@ -221,3 +221,32 @@ html {
     margin-top: 15px; /* مسافة من الأعلى */
     margin-bottom: 10px;
 }
+/* ####### تنسيقات قائمة الأسعار الجديدة ####### */
+.pricing-section {
+    padding: 60px 20px;
+    background-color: #fffbf7;
+    text-align: center;
+}
+
+.pricing-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.price-card {
+    background: white;
+    border: 1px solid #f1eae4;
+    padding: 30px;
+    border-radius: 12px;
+    width: 280px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+    transition: transform 0.3s ease;
+}
+
+.price-card:hover {
+    transform: translateY(-5px);
+}
