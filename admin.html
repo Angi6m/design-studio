@@ -4,11 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>لوحة إدارة الطلبات | Design Studio</title>
-    <!-- ربط نفس ملف التصميم الخاص بك وتأثيرات إضافية لوحة الإدارة -->
     <link rel="stylesheet" href="Style.CSS">
     <style>
         body { font-family: sans-serif; background-color: #fcf8f5; padding: 20px; }
-        .admin-container { max-width: 1100px; margin: 40px auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .admin-container { max-width: 1200px; margin: 40px auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
         h1 { color: #d4a373; text-align: center; margin-bottom: 30px; }
         .orders-table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 16px; }
         .orders-table th, .orders-table td { border: 1px solid #f1eae4; padding: 12px 15px; text-align: right; }
@@ -30,18 +29,16 @@
                 <tr>
                     <th>الاسم</th>
                     <th>رقم الهاتف / الواتساب</th>
-                    <th>تفاصيل الرسالة (الطلب)</th>
-                    <th>وقت ووقت الإرسال</th>
-                    <th>إجراءات</th> </tr>
+                    <th>الصورة المرفقة</th> <th>تفاصيل الرسالة (الطلب)</th>
+                    <th>وقت الإرسال</th>
+                    <th>إجراءات</th> 
                 </tr>
             </thead>
             <tbody id="ordersContainer">
-                <!-- هنا ستنزل الطلبات تلقائياً بالجافا سكريبت -->
-            </tbody>
+                </tbody>
         </table>
     </div>
 
-    <!-- ربط ملف جافا سكريبت الخاص بلوحة الإدارة -->
     <script type="module" src="admin.js"></script>
 </body>
 </html>
