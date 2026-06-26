@@ -1,6 +1,6 @@
 // استدعاء دالتين من Firebase لقراءة البيانات وترتيبها
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-import { getFirestore, collection, query, orderBy, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+import { getFirestore, collection, query, orderBy, getDocs, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
 // نفس مفاتيح الربط الخاصة بمشروعك (Design Studio) لفتح نفس السيرفر
 const firebaseConfig = {
@@ -27,6 +27,40 @@ async function fetchOrders() {
         // إنشاء استعلام لجلب الطلبات من جدول "orders" مرتبة حسب الوقت (الأحدث أولاً)
         const ordersQuery = query(collection(db, "orders"), orderBy("timestamp", "desc"));
         const querySnapshot = await getDocs(ordersQuery);
+
+      querySnapshot.forEach((documentSnapshot) => {
+    const data = documentSnapshot.data();
+    const orderId = documentSnapshot.id; 
+
+    // 1. أضيفي هذا الشرط لتخطي الطلبات المؤرشفة وتنظيف اللوحة
+    if (data.status === "archived") {
+        return; 
+    }
+
+    // ... (هنا كود تحويل الوقت كما هو في ملفكِ الحالي بدون تغيير) ...
+
+    // 2. استبدلي متغير الـ row لكي يحتوي على زر التنظيف في النهاية
+    const row = `
+        <tr id="row-${orderId}">
+            <td><strong>${data.clientName || 'بدون اسم'}</strong></td>
+            <td><a href="https://wa.me/${data.clientPhone}" target="_blank" style="color: #25D366; font-weight: bold; text-decoration: none;">📱 ${data.clientPhone || 'بدون رقم'}</a></td>
+            <td>${data.clientOrder || 'لا توجد تفاصيل'}</td>
+            <td style="color: #666; font-size: 14px;">${formattedTime}</td>
+            <td>
+                <button class="archive-btn" data-id="${orderId}" style="background-color: #d4a373; color: white; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-weight: bold;">تنظيف وعمل ✅</button>
+            </td>
+        </tr>
+    `;
+    ordersContainer.innerHTML += row;
+        // أضيفي هذا الكود لتفعيل استجابة الأزرار عند الضغط
+document.querySelectorAll('.archive-btn').forEach(button => {
+    button.addEventListener('click', async (e) => {
+        const id = e.target.getAttribute('data-id');
+        await archiveOrder(id);
+    });
+});
+});
+      
 
         // مسح أي نص مؤقت
         ordersContainer.innerHTML = "";
@@ -74,6 +108,22 @@ async function fetchOrders() {
         loadingMessage.innerHTML = "❌ فشل تحميل البيانات من السيرفر. تأكدي من إعدادات الحماية في فايربيس.";
     }
 }
-
+// دالة أرشفة الطلب وتنظيفه من الشاشة دون حذفه من السيرفر
+async function archiveOrder(id) {
+    if (confirm("هل تمت تلبية هذا الطلب وتريدين نقله للأرشيف لتنظيف اللوحة؟ ✨")) {
+        try {
+            // تحديث حالة الطلب في Firebase إلى مؤرشف
+            await updateDoc(doc(db, "orders", id), {
+                status: "archived"
+            });
+            
+            alert("تمت أرشفة الطلب بنجاح وتنظيف اللوحة! 🥳");
+            fetchOrders(); // إعادة تحديث شاشة اللوحة فوراً
+        } catch (error) {
+            console.error("خطأ أثناء الأرشفة: ", error);
+            alert("عذراً، حدث خطأ أثناء نقل الطلب. حاولي مجدداً!");
+        }
+    }
+}
 // تشغيل الدالة تلقائياً بمجرد فتح الصفحة
 window.onload = fetchOrders;
