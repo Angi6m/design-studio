@@ -1,5 +1,6 @@
-import { initializeApp } from "[https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js](https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js)";
-import { getFirestore, collection, query, orderBy, getDocs, doc, updateDoc } from "[https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js](https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js)";
+// ####### استيراد مكتبات الفايربيس للوحة الإدارة #######
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+import { getFirestore, collection, query, orderBy, getDocs, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyA69wrlpPFGg35NYXalTvciadHKx0ZpbM8",
@@ -14,6 +15,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
+// ####### جلب وعرض البيانات في جدول الإدارة #######
 async function fetchOrders() {
     const ordersContainer = document.getElementById("ordersContainer");
     const loadingMessage = document.getElementById("loadingMessage");
@@ -30,7 +32,6 @@ async function fetchOrders() {
             const data = documentSnapshot.data();
             const orderId = documentSnapshot.id; 
 
-            // تخطي الطلبات المؤرشفة لتنظيف اللوحة
             if (data.status === "archived") {
                 return; 
             }
@@ -49,18 +50,22 @@ async function fetchOrders() {
                 });
             }
 
-            // البرمجة الخاصة بفحص وعرض الصورة التوضيحية الاختيارية للعميل
+            // فحص الصورة الاختيارية
             let imageCellHtml = `<span style="color: #aaa;">لا توجد صورة</span>`;
             if (data.clientImage && data.clientImage !== "") {
                 imageCellHtml = `<button class="view-img-btn" data-img="${data.clientImage}" style="background-color: #d4a373; color: white; border: none; padding: 4px 10px; border-radius: 4px; cursor: pointer; font-size: 13px;">عرض الصورة 🖼️</button>`;
             }
 
+            // بناء سطر الجدول الكامل شاملاً الباقة والسعر
             const row = `
                 <tr id="row-${orderId}">
                     <td><strong>${data.clientName || 'بدون اسم'}</strong></td>
-                    <td><a href="[https://wa.me/$](https://wa.me/$){data.clientPhone}" target="_blank" style="color: #25D366; font-weight: bold; text-decoration: none;">📱 ${data.clientPhone || 'بدون رقم'}</a></td>
-                    <td>${imageCellHtml}</td> <td>${data.clientOrder || 'لا توجد تفاصيل'}</td>
-                    <td style="color: #666; font-size: 14px;">${formattedTime}</td>
+                    <td><a href="https://wa.me/${data.clientPhone}" target="_blank" style="color: #25D366; font-weight: bold; text-decoration: none;">📱 ${data.clientPhone || 'بدون رقم'}</a></td>
+                    <td style="color: #5c4d3c; font-weight: 500;">${data.clientPackage || 'لم يتم الاختيار'}</td>
+                    <td style="color: #d4a373; font-weight: bold;">${data.clientPrice || 'غير محدد'}</td>
+                    <td>${imageCellHtml}</td>
+                    <td>${data.clientOrder || 'لا توجد تفاصيل'}</td>
+                    <td style="color: #666; font-size: 13px;">${formattedTime}</td>
                     <td>
                         <button class="archive-btn" data-id="${orderId}" style="background-color: #d4a373; color: white; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-weight: bold;">تنظيف وعمل ✅</button>
                     </td>
@@ -79,7 +84,7 @@ async function fetchOrders() {
         loadingMessage.style.display = "none";
         ordersTable.style.display = "table";
 
-        // تشغيل أزرار عرض الصور عند الضغط عليها في نافذة منفصلة
+        // تفعيل أزرار عرض الصور المرفقة
         document.querySelectorAll('.view-img-btn').forEach(button => {
             button.addEventListener('click', (e) => {
                 const base64Data = e.target.getAttribute('data-img');
@@ -88,7 +93,7 @@ async function fetchOrders() {
             });
         });
 
-        // تشغيل أزرار التنظيف والأرشفة عند الضغط عليها
+        // تفعيل أزرار التنظيف والأرشفة
         document.querySelectorAll('.archive-btn').forEach(button => {
             button.addEventListener('click', async (e) => {
                 const id = e.target.getAttribute('data-id');
@@ -102,6 +107,7 @@ async function fetchOrders() {
     }
 }
 
+// ####### دالة نقل الطلبات المنجزة للأرشيف #######
 async function archiveOrder(id) {
     if (confirm("هل تمت تلبية هذا الطلب وتريدين نقله للأرشيف لتنظيف اللوحة؟ ✨")) {
         try {
