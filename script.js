@@ -29,8 +29,7 @@ orderForm.addEventListener('submit', async (e) => {
         return;
     }
 
-    try {
-        // 1. حفظ البيانات في الـ Firebase أولاً كالعادة
+   // 1. إرسال البيانات والانتظار حتى يتأكد الحفظ
         await addDoc(collection(db, "orders"), {
             clientName: name,
             clientPhone: phone,
@@ -38,6 +37,16 @@ orderForm.addEventListener('submit', async (e) => {
             timestamp: new Date()
         });
 
+        // 🌟 أضيفي هذا السطر هنا لتظهر لكِ رسالة النجاح فوراً!
+        alert("تم إرسال طلبكِ بنجاح يا ملاك! ✨");
+
+        // 2. تجهيز الواتساب وفتحه
+        const whatsappNumber = "96896492685";
+        const messageText = `مرحباً Design Studio ✨%0A%0Aأود طلب خدمة من الموقع، وهذه تفاصيلي:%0A👤 *الاسم:* ${name}%0A📱 *الهاتف:* ${phone}%0A📝 *تفاصيل الطلب:* ${order}`;
+        const whatsappUrl = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${messageText}`;
+        
+        window.open(whatsappUrl, '_blank');
+        orderForm.reset();
         // 2. تجهيز نص الرسالة التلقائية للواتساب وتنسيقها بشكل فخم
         const whatsappNumber = "96896492685"; // رقم الواتساب الخاص بكِ
         const messageText = `مرحباً Design Studio ✨%0A%0Aأود طلب خدمة من الموقع، وهذه تفاصيلي:%0A👤 *الاسم:* ${name}%0A📱 *الهاتف:* ${phone}%0A📝 *تفاصيل الطلب:* ${order}`;
