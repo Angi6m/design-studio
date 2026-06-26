@@ -49,20 +49,19 @@ async function fetchOrders() {
         });
     }
 
-    // بناء السطر مع زر التنظيف والأرشفة
-    const row = `
-        <tr id="row-${orderId}">
-            <td><strong>${data.clientName || 'بدون اسم'}</strong></td>
-            <td><a href="https://wa.me/${data.clientPhone}" target="_blank" style="color: #25D366; font-weight: bold; text-decoration: none;">📱 ${data.clientPhone || 'بدون رقم'}</a></td>
-            <td>${data.clientOrder || 'لا توجد تفاصيل'}</td>
-            <td style="color: #666; font-size: 14px;">${formattedTime}</td>
-            <td>
-                <button class="archive-btn" data-id="${orderId}" style="background-color: #d4a373; color: white; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-weight: bold;">تنظيف وعمل ✅</button>
-            </td>
-        </tr>
-    `;
-    ordersContainer.innerHTML += row;
-});
+   // تأكدي أن متغير row مكتوب بهذا الشكل ويحتوي على الـ button في النهاية:
+            const row = `
+                <tr id="row-${orderId}">
+                    <td><strong>${data.clientName || 'بدون اسم'}</strong></td>
+                    <td><a href="https://wa.me/${data.clientPhone}" target="_blank" style="color: #25D366; font-weight: bold; text-decoration: none;">📱 ${data.clientPhone || 'بدون رقم'}</a></td>
+                    <td>${data.clientOrder || 'لا توجد تفاصيل'}</td>
+                    <td style="color: #666; font-size: 14px;">${formattedTime}</td>
+                    <td>
+                        <button class="archive-btn" data-id="${orderId}" style="background-color: #d4a373; color: white; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-weight: bold;">تنظيف وعمل ✅</button>
+                    </td>
+                </tr>
+            `;
+            ordersContainer.innerHTML += row;
 
 // تفعيل عمل الأزرار عند الضغط (توضع مباشرة بعد نهاية حلقة forEach)
 document.querySelectorAll('.archive-btn').forEach(button => {
