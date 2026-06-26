@@ -32,14 +32,24 @@ async function fetchOrders() {
     const data = documentSnapshot.data();
     const orderId = documentSnapshot.id; 
 
-    // 1. أضيفي هذا الشرط لتخطي الطلبات المؤرشفة وتنظيف اللوحة
+    // تخطي الطلبات التي تم تنظيفها وأرشفتها
     if (data.status === "archived") {
         return; 
     }
 
-    // ... (هنا كود تحويل الوقت كما هو في ملفكِ الحالي بدون تغيير) ...
+    let formattedTime = "غير محدد";
+    if (data.timestamp) {
+        const date = data.timestamp.toDate();
+        formattedTime = date.toLocaleString("ar-EG", {
+            hour: '2-digit',
+            minute: '2-digit',
+            day: 'numeric',
+            month: 'short',
+            year: 'numeric'
+        });
+    }
 
-    // 2. استبدلي متغير الـ row لكي يحتوي على زر التنظيف في النهاية
+    // بناء السطر مع زر التنظيف والأرشفة
     const row = `
         <tr id="row-${orderId}">
             <td><strong>${data.clientName || 'بدون اسم'}</strong></td>
@@ -52,16 +62,15 @@ async function fetchOrders() {
         </tr>
     `;
     ordersContainer.innerHTML += row;
-        // أضيفي هذا الكود لتفعيل استجابة الأزرار عند الضغط
+});
+
+// تفعيل عمل الأزرار عند الضغط (توضع مباشرة بعد نهاية حلقة forEach)
 document.querySelectorAll('.archive-btn').forEach(button => {
     button.addEventListener('click', async (e) => {
         const id = e.target.getAttribute('data-id');
         await archiveOrder(id);
     });
 });
-});
-      
-
         // مسح أي نص مؤقت
         ordersContainer.innerHTML = "";
 
