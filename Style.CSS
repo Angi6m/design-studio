@@ -215,3 +215,44 @@ body {
 .submit-btn:hover {
     background-color: #bc8f62;
 }
+
+/* ####### تنسيق قسم معرض الصور الثلاثة الجديد ####### */
+.gallery-section {
+    padding: 60px 20px;
+    text-align: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.gallery-section h2 {
+    color: #d4a373; /* # اللون الذهبي روز الفخم # */
+    margin-bottom: 35px;
+}
+
+.gallery-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px; /* # مسافة متناسقة بين الصور الثلاثة # */
+}
+
+.gallery-item {
+    background: white;
+    padding: 10px; /* # إطار أبيض ناعم حول الصورة # */
+    border-radius: 15px; /* # حواف دائرية فخمة # */
+    border: 1px solid #f1eae4; /* # تحديد نود خفيف جداً # */
+    box-shadow: 0 6px 15px rgba(92, 77, 60, 0.04); /* # ظل بني ناعم جداً ومتناسق # */
+    width: 300px; /* # عرض مناسب وموحد للصور الثلاثة # */
+    transition: transform 0.3s ease;
+}
+
+.gallery-item:hover {
+    transform: translateY(-5px); /* # حركة تفاعلية ترتفع للأعلى قليلاً عند مرور الماوس # */
+}
+
+.gallery-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px; /* # تدوير حواف الصورة الداخلية # */
+    object-fit: cover;
+}
