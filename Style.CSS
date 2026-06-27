@@ -256,3 +256,20 @@ body {
     border-radius: 10px; /* # تدوير حواف الصورة الداخلية # */
     object-fit: cover;
 }
+/* ####### تنسيق زر الإنستقرام الفخم والتفاعلي ####### */
+.instagram-btn {
+    display: inline-block;
+    padding: 12px 30px;
+    background: linear-gradient(45deg, #f9ce34, #ee2a7b, #6228d7); /* # ألوان إنستقرام متداخلة بلمسة ناعمة # */
+    color: white !important;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 30px; /* # تصميم دائري أنيق # */
+    box-shadow: 0 4px 15px rgba(238, 42, 123, 0.2); /* # ظل ملون خفيف # */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.instagram-btn:hover {
+    transform: translateY(-3px); /* # يرتفع للأعلى قليلاً عند تمرير الماوس مثل مربعات الخدمات # */
+    box-shadow: 0 6px 20px rgba(238, 42, 123, 0.35); /* # يرتفع عمق الظل لمنح إحساس بالانبثاق # */
+}
