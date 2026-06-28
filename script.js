@@ -31,12 +31,12 @@ packageSelect.addEventListener('change', () => {
         currencyLabel.style.display = "inline";
         socialPricesImageWrapper.style.display = "none"; // إخفاء الصورة
     } 
-    // # إذا اختار العميل باقة إدارة السوشيال ميديا #
-    else if (price === "على حسب الخدمة") {
-        priceDisplay.textContent = "على حسب الخدمة";
-        currencyLabel.style.display = "none"; 
-        socialPricesImageWrapper.style.display = "block"; // إظهار صورة باقات الأسعار فوراً! 🔥
-    } 
+    // ####### التعديل الأكيد ليتوافق الجافا سكريبت مع النص الظاهر في موقعكِ #######
+else if (price === "باقات على حسب الخدمة") {
+    priceDisplay.textContent = "باقات على حسب الخدمة";
+    currencyLabel.style.display = "none"; 
+    socialPricesImageWrapper.style.display = "block"; // إظهار الصورة فوراً
+}
     // # إذا اختار العميل أي باقة عادية بها سعر رقمي (مثل بزنس كارد) #
     else {
         priceDisplay.textContent = price;
