@@ -15,21 +15,42 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// ####### برمجة تفاعل قائمة الأسعار المنسدلة وتحديث السعر #######
+// ####### برمجة تفاعل قائمة الأسعار وتحديث السعر وإظهار صورة الباقات تلقائياً #######
 const packageSelect = document.getElementById('packageSelect');
 const priceDisplay = document.getElementById('priceDisplay');
+const currencyLabel = document.getElementById('currencyLabel');
+const socialPricesImageWrapper = document.getElementById('socialPricesImageWrapper'); // جلب صندوق الصورة الجديد
 
 packageSelect.addEventListener('change', () => {
     const selectedOption = packageSelect.options[packageSelect.selectedIndex];
     const price = selectedOption.getAttribute('data-price');
     
+    // # إذا لم يتم اختيار أي باقة أو العودة للخيارات الافتراضية #
     if (price === "0" || !price) {
         priceDisplay.textContent = "--";
-    } else {
+        currencyLabel.style.display = "inline";
+        socialPricesImageWrapper.style.display = "none"; // إخفاء الصورة
+    } 
+    // # إذا اختار العميل باقة إدارة السوشيال ميديا #
+    else if (price === "على حسب الخدمة") {
+        priceDisplay.textContent = "على حسب الخدمة";
+        currencyLabel.style.display = "none"; 
+        socialPricesImageWrapper.style.display = "block"; // إظهار صورة باقات الأسعار فوراً! 🔥
+    } 
+    // # إذا اختار العميل أي باقة عادية بها سعر رقمي (مثل بزنس كارد) #
+    else {
         priceDisplay.textContent = price;
+        currencyLabel.style.display = "inline"; 
+        socialPricesImageWrapper.style.display = "none"; // إخفاء الصورة لكي لا تظهر مع الباقات العادية
     }
 });
 
+// ####### حركة إضافية: عند الضغط على الصورة تفتح في نافذة جديدة كبيرة لرؤيتها بوضوح #######
+if (document.getElementById('socialPricesImg')) {
+    document.getElementById('socialPricesImg').addEventListener('click', (e) => {
+        window.open(e.target.src, '_blank');
+    });
+}
 // ####### دالة تحويل ملف الصورة الاختيارية لنص يحفظ في السيرفر #######
 function convertImageToBase64(file) {
     return new Promise((resolve, reject) => {
