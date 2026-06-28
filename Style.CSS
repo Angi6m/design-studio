@@ -273,3 +273,18 @@ body {
     transform: translateY(-3px); /* # يرتفع للأعلى قليلاً عند تمرير الماوس مثل مربعات الخدمات # */
     box-shadow: 0 6px 20px rgba(238, 42, 123, 0.35); /* # يرتفع عمق الظل لمنح إحساس بالانبثاق # */
 }
+
+/* ####### كود زخرفة عمانية هندسية "قوية وواضحة" للخلفية بالكود مباشرة ####### */
+body {
+    background-color: #fffbf7; /* اللون النود الناعم الأساسي للباك جراوند */
+    
+    /* # صنع نقش هندسي عماني مكرر وقوي ليعطي فخامة ووضوحاً ملموساً # */
+    background-image: 
+        linear-gradient(135deg, rgba(212, 163, 115, 0.08) 25%, transparent 25%), 
+        linear-gradient(225deg, rgba(212, 163, 115, 0.08) 25%, transparent 25%), 
+        linear-gradient(45deg, rgba(212, 163, 115, 0.08) 25%, transparent 25%), 
+        linear-gradient(315deg, rgba(212, 163, 115, 0.08) 25%, transparent 25%);
+        
+    background-size: 80px 80px; /* حجم الزخرفة المكررة لتبدو بارزة وواضحة */
+    background-position: 10px 0, 10px 0, 0 0, 0 0; /* ترتيب النقش الهندسي */
+}
