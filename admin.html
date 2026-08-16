@@ -23,6 +23,116 @@
         <h1>📦 لوحة إدارة طلبات العملاء</h1>
         
         <div id="loadingMessage" class="loading">جاري تحميل الطلبات من السيرفر... 🔄</div>
+
+        <div class="admin-layout">
+
+    <!-- القائمة الجانبية -->
+
+    <aside class="sidebar">
+
+        <div class="sidebar-header">
+
+    <img src="IMAGE/IMAGElogo.jpeg" alt="Yazia Design">
+
+    <h2>Yazia Design</h2>
+
+    <p>Admin Dashboard</p>
+
+</div>
+
+        <button class="admin-tab active" data-tab="orders">
+            📦 الطلبات
+        </button>
+
+        <button class="admin-tab" data-tab="services">
+            🎨 الخدمات
+        </button>
+
+        <button class="admin-tab" data-tab="portfolio">
+            🖼 معرض الأعمال
+        </button>
+
+        <button class="admin-tab" data-tab="pricing">
+            💰 الأسعار
+        </button>
+
+        <button class="admin-tab" data-tab="reviews">
+            ⭐ آراء العملاء
+        </button>
+
+        <button class="admin-tab" data-tab="settings">
+            ⚙️ الإعدادات
+        </button>
+
+    </aside>
+
+
+    <!-- محتوى الصفحة -->
+
+    <main class="admin-content">
+
+        <section id="orders" class="tab-content active">
+
+            <!-- هنا نحط جدول الطلبات الحالي -->
+
+        </section>
+
+        <section id="services" class="tab-content">
+
+        </section>
+
+        <section id="portfolio" class="tab-content">
+            <h2>🖼 إدارة صور الخدمات</h2>
+
+<div class="portfolio-admin">
+
+    <label>الخدمة</label>
+
+    <select id="serviceType">
+
+        <option value="identity">الهوية البصرية</option>
+        <option value="social">إدارة حسابات التواصل</option>
+        <option value="posts">تصميم البوستات</option>
+        <option value="other">خدمات أخرى</option>
+
+    </select>
+
+    <label>اختر الصور</label>
+
+    <input
+        type="file"
+        id="portfolioImages"
+        accept="image/*"
+        multiple
+    >
+
+    <button id="uploadPortfolioBtn">
+        رفع الصور
+    </button>
+
+</div>
+
+<hr>
+
+<div id="portfolioGallery"></div>
+
+        </section>
+
+        <section id="pricing" class="tab-content">
+
+        </section>
+
+        <section id="reviews" class="tab-content">
+
+        </section>
+
+        <section id="settings" class="tab-content">
+
+        </section>
+
+    </main>
+
+</div>
         
         <table class="orders-table" id="ordersTable" style="display: none;">
             <thead>
@@ -41,5 +151,6 @@
     </div>
 
     <script type="module" src="admin.js"></script>
+    <script type="module" src="portfolio.js"></script>
 </body>
 </html>

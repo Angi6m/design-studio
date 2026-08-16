@@ -1,19 +1,48 @@
 // ####### استيراد مكتبات الفايربيس #######
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+import {
+ getFirestore, 
+ collection,
+  addDoc,
+  getDocs,
+  doc,
+  getDoc
+
+} 
+from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyA69wrlpPFGg35NYXalTvciadHKx0ZpbM8",
-  authDomain: "design-studio-e876e.firebaseapp.com",
-  projectId: "design-studio-e876e",
-  storageBucket: "design-studio-e876e.firebasestorage.app",
-  messagingSenderId: "22933282452",
-  appId: "1:22933282452:web:46876456f6ef5909631e81",
-  measurementId: "G-Q1YJWZ8DER"
+  apiKey: "AIzaSyCV4UaAdvztAvV3FDbncRb9tbb18tNLZPQ",
+  authDomain: "yazia-design.firebaseapp.com",
+  projectId: "yazia-design",
+  storageBucket: "yazia-design.firebasestorage.app",
+  messagingSenderId: "306527987581",
+  appId: "1:306527987581:web:0cbf69fb7b7a501dd94e14"
 };
+
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+
+// ##########################################################
+// ########## جلب صور الخدمة من Firestore ##########
+// ##########################################################
+
+async function getServiceImages(service){
+
+    const serviceRef = doc(db,"services",service);
+
+    const serviceSnap = await getDoc(serviceRef);
+
+    if(serviceSnap.exists()){
+
+        return serviceSnap.data().images || [];
+
+    }
+
+    return [];
+
+}
 
 // ####### برمجة تفاعل قائمة الأسعار وتحديث السعر وإظهار صورة الباقات تلقائياً #######
 const packageSelect = document.getElementById('packageSelect');
@@ -31,7 +60,7 @@ packageSelect.addEventListener('change', () => {
         currencyLabel.style.display = "inline";
         socialPricesImageWrapper.style.display = "none"; // إخفاء الصورة
     } 
-    // ####### التعديل الأكيد ليتوافق الجافا سكريبت مع النص الظاهر في موقعكِ #######
+   // ####### التعديل الأكيد ليتوافق الجافا سكريبت مع النص الظاهر في موقعكِ #######
 else if (price === "باقات على حسب الخدمة") {
     priceDisplay.textContent = "باقات على حسب الخدمة";
     currencyLabel.style.display = "none"; 
@@ -51,6 +80,7 @@ if (document.getElementById('socialPricesImg')) {
         window.open(e.target.src, '_blank');
     });
 }
+
 // ####### دالة تحويل ملف الصورة الاختيارية لنص يحفظ في السيرفر #######
 function convertImageToBase64(file) {
     return new Promise((resolve, reject) => {
@@ -125,3 +155,213 @@ orderForm.addEventListener('submit', async (e) => {
         alert("عذراً، حدث خطأ أثناء إرسال الطلب. حاولي مجدداً!");
     }
 });
+
+const menuToggle = document.getElementById("menuToggle");
+const navLinks = document.querySelector(".nav-links");
+
+menuToggle.addEventListener("click", () => {
+    navLinks.classList.toggle("active");
+});
+
+window.addEventListener("scroll", () => {
+    const navbar = document.querySelector(".navbar");
+
+    if (window.scrollY > 50) {
+        navbar.classList.add("scrolled");
+    } else {
+        navbar.classList.remove("scrolled");
+    }
+});
+
+const modal = document.getElementById("serviceModal");
+const closeModal = document.querySelector(".close-modal");
+
+document.querySelectorAll(".service-btn").forEach(button => {
+
+    button.addEventListener("click", async () => {
+
+        const service = services[button.dataset.service];
+
+        document.getElementById("modalTitle").textContent = service.title;
+        document.getElementById("modalDescription").textContent = service.description;
+
+        // ##########################################################
+        // ########## جلب الصور من Firestore ##########
+        // ##########################################################
+
+        const firestoreImages = await getServiceImages(button.dataset.service);
+
+        if(firestoreImages.length > 0){
+
+            currentImages = firestoreImages;
+
+        }else{
+
+            // إذا ما فيه صور في Firestore استخدم الصور القديمة مؤقتًا
+            currentImages = service.images;
+
+        }
+
+        currentIndex = 0;
+
+        showImage(currentIndex);
+
+        modal.classList.add("active");
+
+    });
+
+});
+
+closeModal.addEventListener("click",()=>{
+
+    modal.classList.remove("active");
+clearInterval(sliderInterval);
+
+});
+
+window.addEventListener("click",(e)=>{
+
+    if(e.target===modal){
+
+        modal.classList.remove("active");
+        clearInterval(sliderInterval);
+    }
+
+});
+
+let currentImages = [];
+let currentIndex = 0;
+let sliderInterval;
+
+const sliderImage = document.getElementById("sliderImage");
+const sliderDots = document.getElementById("sliderDots");
+function showImage(index){
+
+    sliderImage.src = currentImages[index];
+
+    sliderDots.innerHTML = "";
+
+    currentImages.forEach((_, i)=>{
+
+        const dot = document.createElement("span");
+
+        if(i === index){
+            dot.classList.add("active");
+        }
+
+        dot.addEventListener("click",()=>{
+
+            currentIndex = i;
+
+            showImage(currentIndex);
+
+        });
+
+        sliderDots.appendChild(dot);
+
+    });
+
+}
+
+document.querySelector(".next").addEventListener("click", () => {
+
+    currentIndex++;
+
+    if (currentIndex >= currentImages.length) {
+        currentIndex = 0;
+    }
+
+    showImage(currentIndex);
+
+});
+
+document.querySelector(".prev").addEventListener("click", () => {
+
+    currentIndex--;
+
+    if (currentIndex < 0) {
+        currentIndex = currentImages.length - 1;
+    }
+
+    showImage(currentIndex);
+    
+
+});
+
+function startSlider(){
+
+    clearInterval(sliderInterval);
+
+    sliderInterval = setInterval(()=>{
+
+        currentIndex++;
+
+        if(currentIndex >= currentImages.length){
+            currentIndex = 0;
+        }
+
+        showImage(currentIndex);
+
+    },5000);
+
+}
+
+// ##########################################################
+// ########## بيانات الخدمات الأساسية ##########
+// ########## العناوين والأوصاف فقط ##########
+// ##########################################################
+
+const services = {
+
+    identity: {
+
+        title: "🎨 الهوية البصرية",
+
+        description:
+            "نصمم هوية بصرية متكاملة تشمل الشعار والألوان والخطوط بما يعكس شخصية علامتك التجارية.",
+
+        // الصور الآن تُقرأ من Firestore
+        images: []
+
+    },
+
+
+    social: {
+
+        title: "📱 إدارة حسابات التواصل",
+
+        description:
+            "إدارة احترافية لحسابات التواصل تشمل التخطيط للمحتوى والنشر والتفاعل مع الجمهور.",
+
+        // الصور الآن تُقرأ من Firestore
+        images: []
+
+    },
+
+
+    posts: {
+
+        title: "🖼️ تصميم البوستات",
+
+        description:
+            "تصميم منشورات احترافية ومتوافقة مع هوية نشاطك لجميع المنصات.",
+
+        // الصور الآن تُقرأ من Firestore
+        images: []
+
+    },
+
+
+    other: {
+
+        title: "✨ خدمات تصميم أخرى",
+
+        description:
+            "منيو، بزنس كارد، دعوات، قائمة أسعار، وغيرها.",
+
+        // الصور الآن تُقرأ من Firestore
+        images: []
+
+    }
+
+};
